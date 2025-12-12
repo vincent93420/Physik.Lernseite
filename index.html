@@ -25,7 +25,7 @@
       <a href="#skalen" class="nav-link">Temperaturskalen</a>
       <a href="#teilchen" class="nav-link">Skalen & Teilchen</a>
       <a href="#ausdehnung" class="nav-link">Längenausdehnung</a>
-      <a href="#wasser" class="nav-link">Anomalie des Wassers</a>
+      <a href="#wasser" class="nav-link">Anomalie Wasser</a>
     </nav>
   </header>
 
@@ -33,35 +33,40 @@
     <section id="home" class="card">
       <h1>Dein Lernbereich</h1>
       <p>
-        Hier kannst du die wichtigsten Ideen zu <strong>Temperatur</strong>, <strong>Teilchenmodell</strong>,
-        <strong>Ausdehnung</strong> und der <strong>Anomalie des Wassers</strong> wiederholen.
-        Alles läuft offline als HTML/CSS/JS.
+        Wiederholung zu <strong>Temperaturskalen</strong>, <strong>Teilchenmodell</strong>,
+        <strong>Längenausdehnung</strong> und der <strong>Anomalie des Wassers</strong>.
+        Offline nutzbar als HTML/CSS/JS.
       </p>
 
       <div class="grid2">
         <div class="mini">
-          <h3>So nutzt du die Seite</h3>
+          <h3>Was du hier trainierst</h3>
           <ul>
-            <li>Navigation oben: springt zu den Themen.</li>
-            <li>Interaktive Rechner/Slider helfen beim Verstehen.</li>
-            <li>Mini-Quiz am Ende jeder Section.</li>
+            <li>Umrechnen °C, K, °F</li>
+            <li>Teilchenmodell verstehen (Temperatur vs. Wärme)</li>
+            <li>ΔL berechnen mit ΔL = α·L₀·ΔT</li>
+            <li>Warum Wasser bei 4°C “komisch” ist</li>
           </ul>
         </div>
         <div class="mini">
           <h3>Merksatz</h3>
           <p class="quote">
-            Temperatur sagt, wie schnell sich Teilchen im Durchschnitt bewegen.
-            Wärme ist Energie, die wegen Temperaturunterschieden fließt.
+            Temperatur beschreibt die mittlere Bewegungsenergie der Teilchen.
+            Wärme ist Energie, die wegen Temperaturunterschieden übertragen wird.
           </p>
         </div>
       </div>
 
       <div class="progress-wrap">
-        <div class="progress-title">Fortschritt (Mini-Quiz):</div>
+        <div class="progress-title">Quiz-Fortschritt:</div>
         <div class="progress">
           <div class="progress-bar" id="progressBar" style="width:0%"></div>
         </div>
-        <div class="progress-meta"><span id="progressText">0</span>/4 Quiz gelöst</div>
+        <div class="progress-meta">
+          <span id="progressText">0</span> richtige Antworten
+          <span class="dotsep">•</span>
+          <span id="progressTotal">0</span> Fragen insgesamt
+        </div>
       </div>
     </section>
 
@@ -74,18 +79,24 @@
 
       <div class="grid2">
         <div>
-          <h3>Was ist was?</h3>
+          <h3>Grundpunkte</h3>
           <ul>
-            <li><strong>°C (Celsius)</strong>: Alltagsskala. 0°C Gefrierpunkt, 100°C Siedepunkt (bei Normaldruck).</li>
-            <li><strong>K (Kelvin)</strong>: absolute Skala. 0 K ist der absolute Nullpunkt.</li>
-            <li><strong>°F (Fahrenheit)</strong>: v. a. USA. 32°F Gefrierpunkt, 212°F Siedepunkt.</li>
+            <li><strong>Celsius</strong>: 0°C Gefrierpunkt, 100°C Siedepunkt (bei Normaldruck).</li>
+            <li><strong>Kelvin</strong>: absolute Skala. <strong>0 K</strong> = absoluter Nullpunkt.</li>
+            <li><strong>Fahrenheit</strong>: 32°F Gefrierpunkt, 212°F Siedepunkt.</li>
           </ul>
 
           <div class="formula">
-            <div><strong>Formeln:</strong></div>
+            <div><strong>Exakte Formeln:</strong></div>
             <div class="mono">K = °C + 273,15</div>
             <div class="mono">°C = (°F − 32) · 5/9</div>
             <div class="mono">°F = °C · 9/5 + 32</div>
+            <div class="hint">Rundung nur bei der Anzeige, nicht in der Rechnung.</div>
+          </div>
+
+          <div class="mini">
+            <h4>Typische Prüfungsfalle</h4>
+            <p class="hint">Bei Kelvin gibt’s <strong>kein</strong> Gradzeichen: 293,15 K (nicht 293,15 °K).</p>
           </div>
         </div>
 
@@ -93,7 +104,7 @@
           <h3>Umrechner</h3>
           <div class="row">
             <label for="tValue">Wert</label>
-            <input id="tValue" type="number" value="20" step="0.1" />
+            <input id="tValue" type="number" value="20" step="0.01" />
           </div>
           <div class="row">
             <label for="tUnit">Einheit</label>
@@ -104,6 +115,16 @@
             </select>
           </div>
 
+          <div class="row">
+            <label for="decimals">Anzeige-Rundung</label>
+            <select id="decimals">
+              <option value="0">0 Nachkommastellen</option>
+              <option value="1">1 Nachkommastelle</option>
+              <option value="2" selected>2 Nachkommastellen</option>
+              <option value="3">3 Nachkommastellen</option>
+            </select>
+          </div>
+
           <button class="btn" id="convertBtn">Umrechnen</button>
 
           <div class="results" aria-live="polite">
@@ -111,54 +132,67 @@
             <div class="result-line"><span>K</span><strong id="outK">–</strong></div>
             <div class="result-line"><span>°F</span><strong id="outF">–</strong></div>
           </div>
-
-          <p class="hint">Tipp: Kelvin schreibt man ohne Gradzeichen: <strong>293,15 K</strong>.</p>
         </div>
       </div>
 
-      <div class="quiz">
-        <h3>Mini-Quiz</h3>
-        <p><strong>Frage:</strong> Wie viel Kelvin sind 25°C?</p>
-        <div class="quiz-row">
-          <input id="q1" type="number" placeholder="Antwort in K" step="0.01" />
-          <button class="btn secondary" data-quiz="1">Prüfen</button>
+      <div class="quiz" data-quizblock="skalen">
+        <h3>Quiz: Temperaturskalen</h3>
+        <p class="hint">Mehrere Aufgaben, zufällig. Ziel: sicher umrechnen.</p>
+
+        <div class="quizbox">
+          <div class="quiz-top">
+            <div class="quiz-title" id="qTitle-skalen">Frage</div>
+            <div class="quiz-meta"><span id="qIdx-skalen">1</span>/<span id="qMax-skalen">5</span></div>
+          </div>
+
+          <div class="quiz-question" id="qText-skalen"></div>
+
+          <div class="quiz-input" id="qInput-skalen"></div>
+
+          <div class="quiz-actions">
+            <button class="btn secondary" id="qCheck-skalen">Prüfen</button>
+            <button class="btn" id="qNext-skalen" disabled>Nächste Frage</button>
+          </div>
+
+          <div class="feedback" id="qFb-skalen"></div>
         </div>
-        <div class="feedback" id="fb1"></div>
       </div>
     </section>
 
-    <!-- TEMPERATURSKALEN & TEILCHEN -->
+    <!-- TEILCHEN -->
     <section id="teilchen" class="card">
       <div class="section-head">
         <h2>2) Temperaturskalen & Teilchen</h2>
-        <span class="pill">Teilchenmodell · mittlere Bewegungsenergie</span>
+        <span class="pill">Teilchenmodell · Temperatur vs. Wärme</span>
       </div>
 
       <div class="grid2">
         <div>
-          <h3>Die Idee dahinter</h3>
+          <h3>Was Temperatur wirklich bedeutet</h3>
           <p>
-            Im Teilchenmodell bestehen Stoffe aus winzigen Teilchen. Je höher die Temperatur,
-            desto schneller bewegen sie sich im Durchschnitt. Das ist der Grund, warum die
-            <strong>Kelvin-Skala</strong> so wichtig ist: Sie startet bei einem theoretischen Punkt,
-            an dem die Teilchenbewegung minimal ist (<strong>0 K</strong>).
+            Im Teilchenmodell bewegen sich Teilchen ständig. Je höher die Temperatur,
+            desto größer ist im Durchschnitt ihre Bewegungsenergie.
           </p>
 
           <div class="mini">
-            <h4>Wichtig zu unterscheiden</h4>
+            <h4>Wichtig: Temperatur ≠ Wärmemenge</h4>
             <ul>
-              <li><strong>Temperatur</strong>: Maß für die mittlere Bewegungsenergie der Teilchen.</li>
-              <li><strong>Wärmeenergie</strong>: Energie, die ein Körper insgesamt gespeichert hat (hängt auch von Masse ab).</li>
+              <li><strong>Temperatur</strong>: “Wie schnell” die Teilchen im Schnitt sind.</li>
+              <li><strong>Wärmeenergie</strong>: “Wie viel Energie insgesamt drin steckt” (auch Masse zählt!).</li>
             </ul>
+          </div>
+
+          <div class="formula">
+            <div><strong>Kelvin ist praktisch, weil…</strong></div>
+            <div class="hint">
+              Viele physikalische Zusammenhänge brauchen eine absolute Skala (0 K als Nullpunkt).
+            </div>
           </div>
         </div>
 
         <div class="panel">
-          <h3>Teilchen-Speed-Slider (nur Modell!)</h3>
-          <p class="hint">
-            Das ist keine echte Physik-Simulation, sondern ein anschauliches Modell:
-            höheres T ⇒ „mehr Bewegung“.
-          </p>
+          <h3>Teilchen-Bewegung (Modell)</h3>
+          <p class="hint">Anschaulich: höheres T ⇒ mehr Bewegung (keine echte Simulation).</p>
 
           <div class="row">
             <label for="tempSlider">Temperatur (°C)</label>
@@ -166,7 +200,7 @@
           </div>
           <div class="row compact">
             <div class="mono">Aktuell: <strong id="tempLabel">20</strong> °C</div>
-            <div class="mono">≈ <strong id="kelvinLabel">293,15</strong> K</div>
+            <div class="mono">= <strong id="kelvinLabel">293,15</strong> K</div>
           </div>
 
           <div class="motion-box" aria-hidden="true">
@@ -176,30 +210,28 @@
             <div class="dot" id="dot4"></div>
             <div class="dot" id="dot5"></div>
           </div>
-
-          <p class="hint">
-            Merke: Kelvin ist praktisch, weil viele Zusammenhänge „linear“ mit absoluter Temperatur funktionieren.
-          </p>
         </div>
       </div>
 
-      <div class="quiz">
-        <h3>Mini-Quiz</h3>
-        <p><strong>Frage:</strong> Warum benutzt man in der Physik oft Kelvin statt Celsius?</p>
-        <div class="quiz-row">
-          <select id="q2">
-            <option value="">Bitte wählen…</option>
-            <option value="a">Weil Kelvin bei 0°C startet.</option>
-            <option value="b">Weil Kelvin eine absolute Skala ist (0 K = absoluter Nullpunkt).</option>
-            <option value="c">Weil Kelvin nur für Wetter verwendet wird.</option>
-          </select>
-          <button class="btn secondary" data-quiz="2">Prüfen</button>
+      <div class="quiz" data-quizblock="teilchen">
+        <h3>Quiz: Teilchenmodell</h3>
+        <div class="quizbox">
+          <div class="quiz-top">
+            <div class="quiz-title" id="qTitle-teilchen">Frage</div>
+            <div class="quiz-meta"><span id="qIdx-teilchen">1</span>/<span id="qMax-teilchen">5</span></div>
+          </div>
+          <div class="quiz-question" id="qText-teilchen"></div>
+          <div class="quiz-input" id="qInput-teilchen"></div>
+          <div class="quiz-actions">
+            <button class="btn secondary" id="qCheck-teilchen">Prüfen</button>
+            <button class="btn" id="qNext-teilchen" disabled>Nächste Frage</button>
+          </div>
+          <div class="feedback" id="qFb-teilchen"></div>
         </div>
-        <div class="feedback" id="fb2"></div>
       </div>
     </section>
 
-    <!-- LÄNGENAUSDEHNUNG -->
+    <!-- AUSDEHNUNG -->
     <section id="ausdehnung" class="card">
       <div class="section-head">
         <h2>3) Längenausdehnung</h2>
@@ -208,26 +240,25 @@
 
       <div class="grid2">
         <div>
-          <h3>Was passiert da?</h3>
+          <h3>Warum dehnt sich ein Körper aus?</h3>
           <p>
-            Erwärmt man einen festen Körper, schwingen die Teilchen stärker. Dadurch wird
-            der mittlere Abstand etwas größer und der Körper dehnt sich aus.
+            Beim Erwärmen schwingen die Teilchen stärker. Dadurch werden die mittleren Abstände minimal größer
+            und der Körper wird länger.
           </p>
 
           <div class="formula">
             <div><strong>Formel (linear):</strong></div>
             <div class="mono">ΔL = α · L₀ · ΔT</div>
-            <div class="hint">
-              ΔL: Längenänderung, α: Ausdehnungskoeffizient, L₀: Anfangslänge, ΔT: Temperaturänderung
-            </div>
+            <div class="hint">ΔT kann in K oder °C eingesetzt werden (bei Differenzen gleich).</div>
           </div>
 
           <div class="mini">
-            <h4>Typische Größenordnung</h4>
-            <p class="hint">
-              α ist oft winzig (z. B. Metalle etwa im Bereich 10⁻⁵ pro Kelvin). Trotzdem sieht man
-              Effekte z. B. bei Brücken, Schienen oder Stromleitungen.
-            </p>
+            <h4>Typische Anwendungen</h4>
+            <ul>
+              <li>Dehnfugen bei Brücken</li>
+              <li>Schienen “arbeiten” im Sommer</li>
+              <li>Stromleitungen hängen bei Wärme stärker durch</li>
+            </ul>
           </div>
         </div>
 
@@ -242,9 +273,9 @@
           <div class="row">
             <label for="alpha">α (1/K)</label>
             <select id="alpha">
-              <option value="0.000012">Stahl (≈ 12 · 10⁻⁶)</option>
-              <option value="0.000017">Aluminium (≈ 17 · 10⁻⁶)</option>
-              <option value="0.000023">Kupfer (≈ 23 · 10⁻⁶)</option>
+              <option value="0.000012">Stahl (≈ 12·10⁻⁶)</option>
+              <option value="0.000017">Aluminium (≈ 17·10⁻⁶)</option>
+              <option value="0.000023">Kupfer (≈ 23·10⁻⁶)</option>
               <option value="custom">Eigenwert…</option>
             </select>
           </div>
@@ -255,7 +286,7 @@
           </div>
 
           <div class="row">
-            <label for="dT">Temperaturänderung ΔT (K oder °C)</label>
+            <label for="dT">Temperaturänderung ΔT</label>
             <input id="dT" type="number" value="30" step="0.1" />
           </div>
 
@@ -266,29 +297,29 @@
             <div class="result-line"><span>Neue Länge</span><strong id="outLNew">–</strong></div>
           </div>
 
-          <p class="hint">
-            Hinweis: Bei Temperaturdifferenzen ist „ΔT in °C“ numerisch gleich „ΔT in K“.
-          </p>
+          <p class="hint">Tipp: m → mm: mal 1000.</p>
         </div>
       </div>
 
-      <div class="quiz">
-        <h3>Mini-Quiz</h3>
-        <p><strong>Frage:</strong> Was passiert mit einem Metallstab beim Erwärmen (normalerweise)?</p>
-        <div class="quiz-row">
-          <select id="q3">
-            <option value="">Bitte wählen…</option>
-            <option value="a">Er wird kürzer.</option>
-            <option value="b">Er bleibt exakt gleich lang.</option>
-            <option value="c">Er wird länger.</option>
-          </select>
-          <button class="btn secondary" data-quiz="3">Prüfen</button>
+      <div class="quiz" data-quizblock="ausdehnung">
+        <h3>Quiz: Längenausdehnung</h3>
+        <div class="quizbox">
+          <div class="quiz-top">
+            <div class="quiz-title" id="qTitle-ausdehnung">Frage</div>
+            <div class="quiz-meta"><span id="qIdx-ausdehnung">1</span>/<span id="qMax-ausdehnung">5</span></div>
+          </div>
+          <div class="quiz-question" id="qText-ausdehnung"></div>
+          <div class="quiz-input" id="qInput-ausdehnung"></div>
+          <div class="quiz-actions">
+            <button class="btn secondary" id="qCheck-ausdehnung">Prüfen</button>
+            <button class="btn" id="qNext-ausdehnung" disabled>Nächste Frage</button>
+          </div>
+          <div class="feedback" id="qFb-ausdehnung"></div>
         </div>
-        <div class="feedback" id="fb3"></div>
       </div>
     </section>
 
-    <!-- ANOMALIE DES WASSERS -->
+    <!-- WASSER -->
     <section id="wasser" class="card">
       <div class="section-head">
         <h2>4) Anomalie des Wassers</h2>
@@ -297,26 +328,26 @@
 
       <div class="grid2">
         <div>
-          <h3>Das Besondere an Wasser</h3>
+          <h3>Was ist “anomaler” dran?</h3>
           <p>
-            Wasser hat ein <strong>Dichte-Maximum bei ca. 4°C</strong>. Das bedeutet:
-            Wenn Wasser von 4°C auf 0°C abkühlt, wird es wieder <strong>weniger dicht</strong>
-            und „steigt nach oben“. Beim Gefrieren dehnt es sich aus.
+            Wasser hat bei ca. <strong>4°C die höchste Dichte</strong>.
+            Kühlt Wasser von 4°C auf 0°C ab, wird es wieder <strong>weniger dicht</strong> und steigt nach oben.
+            Eis ist noch weniger dicht und schwimmt.
           </p>
 
           <div class="mini">
-            <h4>Warum ist das wichtig?</h4>
+            <h4>Warum hilft das der Natur?</h4>
             <ul>
-              <li>Seen frieren von oben zu, unten bleibt es oft bei ~4°C flüssig.</li>
-              <li>Fische können im Winter überleben.</li>
-              <li>Frost kann Steine sprengen (Wasser dehnt sich beim Gefrieren aus).</li>
+              <li>Seen frieren von oben zu, unten bleibt es flüssig (~4°C).</li>
+              <li>Tiere können im Winter überleben.</li>
+              <li>Frost sprengt Gestein: Wasser dehnt sich beim Gefrieren aus.</li>
             </ul>
           </div>
         </div>
 
         <div class="panel">
-          <h3>Mini-Experiment (Gedankenmodell)</h3>
-          <p class="hint">Wähle eine Temperatur und schau, ob Wasser eher „sinkt“ oder „steigt“ (vereinfacht).</p>
+          <h3>Mini-Modell</h3>
+          <p class="hint">Vereinfacht: zeigt nur “steigt/sinkt”-Tendenz.</p>
 
           <div class="row">
             <label for="waterTemp">Temperatur (°C)</label>
@@ -332,27 +363,30 @@
             <div class="lake-layer warm" id="layerWarm">wärmer</div>
             <div class="lake-fish">🐟</div>
           </div>
-
-          <p class="hint">
-            Real ist es komplizierter (Strömungen, Salz, Wind), aber die Grundidee passt für Schule.
-          </p>
         </div>
       </div>
 
-      <div class="quiz">
-        <h3>Mini-Quiz</h3>
-        <p><strong>Frage:</strong> Bei welcher Temperatur hat Wasser die höchste Dichte?</p>
-        <div class="quiz-row">
-          <input id="q4" type="number" placeholder="Antwort in °C" step="0.1" />
-          <button class="btn secondary" data-quiz="4">Prüfen</button>
+      <div class="quiz" data-quizblock="wasser">
+        <h3>Quiz: Anomalie des Wassers</h3>
+        <div class="quizbox">
+          <div class="quiz-top">
+            <div class="quiz-title" id="qTitle-wasser">Frage</div>
+            <div class="quiz-meta"><span id="qIdx-wasser">1</span>/<span id="qMax-wasser">5</span></div>
+          </div>
+          <div class="quiz-question" id="qText-wasser"></div>
+          <div class="quiz-input" id="qInput-wasser"></div>
+          <div class="quiz-actions">
+            <button class="btn secondary" id="qCheck-wasser">Prüfen</button>
+            <button class="btn" id="qNext-wasser" disabled>Nächste Frage</button>
+          </div>
+          <div class="feedback" id="qFb-wasser"></div>
         </div>
-        <div class="feedback" id="fb4"></div>
       </div>
     </section>
 
     <footer class="footer">
       <div class="footer-inner">
-        <span class="mono">©</span> Lernwebsite · HTML/CSS/JS · Offline nutzbar
+        <span class="mono">©</span> Lernwebsite · HTML/CSS/JS
         <span class="dotsep">•</span>
         <button class="linklike" id="resetBtn" type="button">Quiz-Fortschritt zurücksetzen</button>
       </div>
