@@ -398,3 +398,42 @@ input[type="range"]{ padding: 8px; }
   .nav.open{ display: flex; }
   .nav-link{ padding: 10px 12px; }
 }
+
+/* Damit Überschriften beim Springen nicht unter der Topbar verschwinden */
+section{ scroll-margin-top: 90px; }
+
+/* Neues Quiz-Layout */
+.quizbox{
+  background: rgba(0,0,0,0.14);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 14px;
+  margin-top: 10px;
+}
+.quiz-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.quiz-title{ font-weight: 700; }
+.quiz-meta{ color: rgba(255,255,255,0.70); font-size: 13px; }
+.quiz-question{ color: rgba(255,255,255,0.86); margin: 8px 0 10px; }
+.quiz-actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.quiz-input .option{
+  display: block;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.16);
+  margin: 8px 0;
+  cursor: pointer;
+}
+.quiz-input .option input{ margin-right: 8px; }
+
